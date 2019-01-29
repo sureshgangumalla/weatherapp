@@ -6,12 +6,14 @@ if(!empty($_GET['location'])){
 	$weather_json = file_get_contents($weather_url);
 	$weatherDetailsArray = json_decode($weather_json,true);
 	
+	$size = sizeof($weatherDetailsArray);
 	$city = $weatherDetailsArray['city'];
+	if($size>2){
 	$Temp = $weatherDetailsArray['Temperature'];
 	$Humidity = $weatherDetailsArray['Humidity'];
 	$Temp_Min = $weatherDetailsArray['Min Temp'];
 	$Temp_Max = $weatherDetailsArray['Max Temp'];
-	
+	}
 	
 }
 
@@ -40,13 +42,18 @@ if(!empty($city)){
 	
     echo 'City:             '.$city;
     echo "<br>";
-	echo 'Temperature:  '.$Temp;
+	
+	if(!empty($Temp)){
+	echo 'Temperature : '.$Temp;
 	echo "<br>";
-	echo 'Humidity:      '.$Humidity;
+	echo 'Humidity : '.$Humidity;
 	echo "<br>";
-	echo 'Min Temperature:   '.$Temp_Min;
+	echo 'Min Temperature : '.$Temp_Min;
 	echo "<br>";
-	echo 'Max Temperature:    '.$Temp_Max;
+	echo 'Max Temperature : '.$Temp_Max;}
+	else{
+		echo 'Result : Google Weather API is not available for this city';
+	}
 }
 ?>
 
